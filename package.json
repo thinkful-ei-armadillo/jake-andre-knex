@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require test/setup.js",
+    "test": "mocha test/shopping-list-service.test.js",
     "start": "node src/drills.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"

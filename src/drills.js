@@ -1,4 +1,7 @@
+'use strict';
+
 require('dotenv').config();
+const ShoppingListService = require('./shopping-list-service');
 const knexFn = require('knex');
 
 const knex = knexFn({
@@ -37,7 +40,7 @@ const getAllAfterDate = (daysAgo) => {
     .where(
       'date_added',
       '<',
-      knex.raw(`now() - '?? days'::INTERVAL`, daysAgo)
+      knex.raw('now() - \'?? days\'::INTERVAL', daysAgo)
     )
     .from('shopping_list')
     .groupBy('id', 'date_added')
@@ -55,11 +58,14 @@ const getTotalForCategory = () => {
     .groupBy('category')
     .then(res => {
       console.log('getTotalForCategory: ', res);
-    })
+    });
 };
 
+ShoppingListService.getAllItems(knex).then(res => {
+  console.log(res);
+});
 
-searchForTerm('Bacon');
-getAllPaginated(3);
-getAllAfterDate(21);
-getTotalForCategory();
+// searchForTerm('Bacon');
+// getAllPaginated(3);
+// getAllAfterDate(21);
+// getTotalForCategory();
